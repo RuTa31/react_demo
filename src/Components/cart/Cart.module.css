@@ -1,0 +1,45 @@
+.mini_card{
+    height: 500px;
+    width: 300px;
+    background-color: black;
+    display: flex;
+    margin: 1px;
+    flex-direction: column;
+
+}
+.image_page{
+height: 70%;
+width: 100%;
+background-color: blue;
+margin: 1px;
+display: flex;
+}
+.mini_button{
+    height: 30%;
+    width: 100%;
+    background-color: brown;
+}
+.ggg{
+    height: 100%;
+    width: 100%;
+}
+.button_gg{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.mini-text{
+    height: 50%;
+    width: 100%;
+    background-color: aliceblue;
+}
+.button_conten{
+    height: 50%;
+    width: 100%;
+    background-color: rgb(39, 101, 155);
+}

@@ -1,0 +1,59 @@
+.Roomcontainer{
+    background-color: brown;
+    height: 100vh;
+    width: 100%;
+}
+.sandal{
+    background-color: rgb(69, 133, 216);
+    height: 50%;
+    width: 100%;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    /* align-items: center; */
+
+}
+.batalga{
+    background-color: rgb(186, 212, 39);
+    height: 50%;
+    width: 100%;
+}
+.batContainer{
+    background-color: blueviolet;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+.Medeelel{
+    background-color: rgb(212, 170, 170);
+    width: 50%;
+    height: 100%;
+}
+.room_zurag{
+    background-color: rgb(209, 43, 43);
+    width: 50%;
+    height: 100%;
+}
+.seatcon{
+    height: 100%;
+    width: 100%;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* align-items: center; */
+}
+.clickbox{
+    background-color: blue;     
+    /* margin: 0.5px; */
+    width: 25px;
+    height: 25px;
+
+
+}
+.seat1{
+    background-color: brown;
+    height: 50px;
+    width: 100%;
+
+}
