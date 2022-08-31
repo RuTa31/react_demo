@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
 import { getAnalytics } from "firebase/analytics";
 import {getDoc,doc, setDoc} from 'firebase/firestore';
@@ -7,55 +7,63 @@ import { contains } from "@firebase/util";
 import {SeatContext, useSeatContext} from '../Providers/SeatProvider';
 import {OrderContext, useOrderContext} from '../Providers/OrderProvider'
 import "./page-css/Room.css"
+
+
 const Room = ()=> {
-    const {orderpro, setOrderpro} = useContext(OrderContext);
-    // const {seat}= useContext(SeatContext)
+    //! ============ order pagees awch bga data ===========================
+    const {orderpro, setOrderpro} = useContext(OrderContext); 
+    // console.log("!!!!!!!!!!!!!!!", orderpro[0].name)
+    //! ============ suudal hesgiin data =====================
     const {seatA, setSeatA, seatB, setSeatB, seatC, setSeatC} = useSeatContext();
-    console.log("%%%%%%%%%%%", orderpro)
+    console.log('uu', seatA)
+    //! ============ data oorchilj bga hesesg =================
     const change = (el, index) => {
-        if (el == true) {
-            el=false
-        }
-        console.log("???????????????", seatA)
-        el.target.style.visibility = 'hidden'
+        const xx = {
+            'id' : el.target.id,
+            'type': true,
+            'name' : orderpro[0].name,
+            'URl' : orderpro[0].URL,
+            'content' : orderpro[0].content,
+            'humanName' : orderpro[0].humanName,
+            'Phone' : orderpro[0].Phone,
+            'mail' : orderpro[0].mail,
+            'too' : orderpro[0].too
+        }   
+        
+            const newState = [...seatA]
+            newState[el.target.id] = xx
+            
+            setSeatA(newState)
+        
+        console.log("???????????????", seatA)    
     }
+    useEffect(() => {
+        console.log("111111111111", seatA)
+    },[seatA])
+    //!===================== firebase ==========================
+    const onclick = async () =>{
+        const movie = doc(db, `movie/${orderpro[0].name}`);
+        await setDoc(movie,  seatA); 
+    }
+
     return(
         <div className="Roomcontainer">
             <div className="sandal">
                 <h1>Suudal songoh</h1>
                 <div className="seatcon">
                     <div className="seat1">
-                        <label> A</label>
-                        {seatA.map((el, index) => {
-                            console.log("@@@@@@@@@@@@@@@", el)
-                            const visibilityState = el==true ? "visible" : "hidden";
+                        {seatA.map((element, index) => {
+                            console.log("@@@@@@@@@@@@@@@", index)
+                            // const visibilityState = el.visibility==true ? "visible" : "hidden";
                             return(
-                                // <button style={{visibility: seatA[index]== ? el.target.style.visibility = "visible" : el.target.style.visibility = "hidden"}} className="clickbox" id={index} onClick={(el)=> el.target.style.visibility = 'hidden'}></button>
-                                <button style={{visibility: visibilityState}} className="clickbox" id={index} onClick={(el) => change(el)} ></button>
-                                
+                                <div className="none_div">
+                                    <button className="clickbox" id={index} onClick={change} onChange={(e) => console.log("===========", e)} ></button>
+                                </div>
                                 )
-                        })}
-                        <label> A</label><br /><br />
-                    </div>
-                    <div className="seat1">
-                        <label> B</label>
-                        {seatB.map((el, index) => {
-                            return(
-                                <button className="clickbox" id={index} onClick="sd"></button>
-                            )
-                        })}
-                        <label> B</label>
-                    </div>
-                    <div className="seat1">
-                        <label> C</label>
-                        {seatC.map((el, index) => {
-                            return(
-                                <button className="clickbox" id={index} onClick={(el)=> el.target.style.visibility = 'hidden'}></button>
-                            )
-                        })}
-                        <label> C</label>
+                        })} 
                     </div>
                 </div>
+                    <button onClick={onclick}>click me</button>
             </div>
             <div className="batalga">
                 <h1>Songol batalgaajuulah heseg</h1>

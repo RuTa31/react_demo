@@ -45,7 +45,7 @@
 }
 .clickbox{
     background-color: blue;     
-    /* margin: 0.5px; */
+    /* margin: 5px; */
     width: 25px;
     height: 25px;
 
@@ -55,5 +55,17 @@
     background-color: brown;
     height: 50px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+
+
+}
+.none_div{
+    margin: 1px;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(188, 190, 45);
+    width: 25px;
+    height: 25px;
 
 }

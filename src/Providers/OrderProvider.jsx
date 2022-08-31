@@ -1,7 +1,8 @@
 import { createContext, useState, useContext } from "react";
 export const OrderContext = createContext();
 export const OrderProvider = ({children}) => {
-    const [orderpro, setOrderpro] = useState("")
+    const [orderpro, setOrderpro] = useState("");
+
     return (
         <OrderContext.Provider value={{orderpro, setOrderpro}}>
             {children}

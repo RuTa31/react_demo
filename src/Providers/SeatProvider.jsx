@@ -3,8 +3,8 @@ import { createContext, useContext, useState } from "react";
 export const SeatContext = createContext();
 
 export const SeatProvider = ({children}) => {
-
-    const [seatA, setSeatA] = useState( new Array(20).fill(true) );
+    
+    const [seatA, setSeatA] = useState( new Array(20).fill({}) );
     const [seatB, setSeatB] = useState( new Array(20).fill('') );
     const [seatC, setSeatC] = useState( new Array(20).fill('') );
     
