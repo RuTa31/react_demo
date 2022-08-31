@@ -15,13 +15,13 @@ import { collection, getFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCRTp5AMIXOH10fbCT8ZMRr1iBxie39o2w",
   authDomain: "cinema-f2707.firebaseapp.com",
+  databaseURL: "https://cinema-f2707-default-rtdb.firebaseio.com",
   projectId: "cinema-f2707",
   storageBucket: "cinema-f2707.appspot.com",
   messagingSenderId: "1083457534004",
   appId: "1:1083457534004:web:d20c162ee174f766fa7261",
   measurementId: "G-3YGK9NFR1C"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

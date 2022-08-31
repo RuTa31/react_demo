@@ -4,7 +4,16 @@ export const SeatContext = createContext();
 
 export const SeatProvider = ({children}) => {
     
-    const [seatA, setSeatA] = useState( new Array(20).fill({}) );
+    const [seatA, setSeatA] = useState( new Array(20).fill({
+        'id' : "",
+        'type': "",
+        'name' : "",
+        'content' : "",
+        'humanName' : "",
+        'Phone' : "",
+        'mail' : "",
+        'too' : "",
+    }) );
     const [seatB, setSeatB] = useState( new Array(20).fill('') );
     const [seatC, setSeatC] = useState( new Array(20).fill('') );
     

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
 import { getAnalytics } from "firebase/analytics";
-import {getDoc,doc, setDoc} from 'firebase/firestore';
+import {getDoc,doc, setDoc, addDoc, collection} from 'firebase/firestore';
 import {db} from "../data/json/key"
 import { contains } from "@firebase/util";
 import {SeatContext, useSeatContext} from '../Providers/SeatProvider';
@@ -15,14 +15,14 @@ const Room = ()=> {
     // console.log("!!!!!!!!!!!!!!!", orderpro[0].name)
     //! ============ suudal hesgiin data =====================
     const {seatA, setSeatA, seatB, setSeatB, seatC, setSeatC} = useSeatContext();
+    const [value,setValue] = useState({})
     console.log('uu', seatA)
-    //! ============ data oorchilj bga hesesg =================
+    //! ============ data oorchilj bga heseg =================
     const change = (el, index) => {
         const xx = {
             'id' : el.target.id,
             'type': true,
             'name' : orderpro[0].name,
-            'URl' : orderpro[0].URL,
             'content' : orderpro[0].content,
             'humanName' : orderpro[0].humanName,
             'Phone' : orderpro[0].Phone,
@@ -42,8 +42,16 @@ const Room = ()=> {
     },[seatA])
     //!===================== firebase ==========================
     const onclick = async () =>{
-        const movie = doc(db, `movie/${orderpro[0].name}`);
-        await setDoc(movie,  seatA); 
+        const namegg = orderpro[0].name
+        const newCityRef = doc(collection(db, `movs${namegg}`));
+        await setDoc(doc(db, "movies", orderpro[0].name), {
+           seatA: seatA
+        }   );
+        
+        // const movie = doc(db, "movies", orderpro[0].name);
+        // await setDoc(movie ,{nem: orderpro[0].name, nnnn: orderpro[0].URL} );  
+        // console.log("tes")
+      
     }
 
     return(
