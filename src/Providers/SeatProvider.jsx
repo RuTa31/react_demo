@@ -6,7 +6,7 @@ export const SeatProvider = ({children}) => {
     
     const [seatA, setSeatA] = useState( new Array(20).fill({
         'id' : "",
-        'type': "",
+        'type': false,
         'name' : "",
         'content' : "",
         'humanName' : "",

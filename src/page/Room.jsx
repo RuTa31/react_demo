@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom";
 import { getAnalytics } from "firebase/analytics";
-import {getDoc,doc, setDoc, addDoc, collection} from 'firebase/firestore';
+import {getDoc, doc, setDoc, addDoc, collection, getDocFromCache} from 'firebase/firestore';
 import {db} from "../data/json/key"
 import { contains } from "@firebase/util";
 import {SeatContext, useSeatContext} from '../Providers/SeatProvider';
@@ -10,13 +10,39 @@ import "./page-css/Room.css"
 
 
 const Room = ()=> {
+    //? ================= read data ==============================
+    const [newdata, setNewdata] = useState();
+    const [data, setData] = useState();
+    const [loading, setLoading] = useState(true)
+    const read_data = async () => {
+
+      const docRef = doc(db, "movies", orderpro[0].name);
+
+      try {
+          const doc = await getDoc(docRef);
+          setNewdata(doc.data().seatA)
+        //   console.log("Cached document data:", doc.data().seatA);
+        } catch (e) {
+            setNewdata(seatA)
+            // console.log("Error getting cached document:", e);
+        } finally {
+          setLoading(false)
+        }
+    }
+    useEffect(() => {
+        read_data();
+    },[])
+    // useEffect(() => {
+    //     console.log("#####", newdata)
+    // },[newdata])
+    
     //! ============ order pagees awch bga data ===========================
     const {orderpro, setOrderpro} = useContext(OrderContext); 
-    // console.log("!!!!!!!!!!!!!!!", orderpro[0].name)
+    console.log("!!!!!!!!!!!!!!!", orderpro[0].name)
     //! ============ suudal hesgiin data =====================
     const {seatA, setSeatA, seatB, setSeatB, seatC, setSeatC} = useSeatContext();
     const [value,setValue] = useState({})
-    console.log('uu', seatA)
+    // console.log('uu', seatA)
     //! ============ data oorchilj bga heseg =================
     const change = (el, index) => {
         const xx = {
@@ -30,28 +56,23 @@ const Room = ()=> {
             'too' : orderpro[0].too
         }   
         
-            const newState = [...seatA]
+            const newState = [...newdata]
             newState[el.target.id] = xx
-            
-            setSeatA(newState)
+            setNewdata("")
+            setNewdata(newState)
+           
         
-        console.log("???????????????", seatA)    
+        // console.log("???????????????", seatA)    
     }
     useEffect(() => {
-        console.log("111111111111", seatA)
-    },[seatA])
+        console.log("111111111111", newdata)
+    },[newdata])
     //!===================== firebase ==========================
     const onclick = async () =>{
-        const namegg = orderpro[0].name
-        const newCityRef = doc(collection(db, `movs${namegg}`));
         await setDoc(doc(db, "movies", orderpro[0].name), {
-           seatA: seatA
+           seatA: newdata
         }   );
-        
-        // const movie = doc(db, "movies", orderpro[0].name);
-        // await setDoc(movie ,{nem: orderpro[0].name, nnnn: orderpro[0].URL} );  
-        // console.log("tes")
-      
+
     }
 
     return(
@@ -60,12 +81,12 @@ const Room = ()=> {
                 <h1>Suudal songoh</h1>
                 <div className="seatcon">
                     <div className="seat1">
-                        {seatA.map((element, index) => {
-                            console.log("@@@@@@@@@@@@@@@", index)
-                            // const visibilityState = el.visibility==true ? "visible" : "hidden";
+                        {!loading && newdata.map((element, index) => {
+                            console.log("@@@@@@@@@@@@@@@", element.type)
+                            const container = element.type ? {display: 'none'} : {display: 'block'};
                             return(
-                                <div className="none_div">
-                                    <button className="clickbox" id={index} onClick={change} onChange={(e) => console.log("===========", e)} ></button>
+                                <div className="none_div" >
+                                    <button style={container} className="clickbox" id={index} onClick={change} onChange={(e) => console.log("===========", e)} ></button>
                                 </div>
                                 )
                         })} 
